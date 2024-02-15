@@ -1,7 +1,7 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Connect to the database
-    $connection = mysqli_connect("localhost", "root", "", "events");
+    $connection = mysqli_connect("localhost", "root", "", "calendar");
 
     // Check connection
     if ($connection === false) {
@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = mysqli_real_escape_string($connection, $_POST['description']);
 
     // Insert member data into the database
-    $insertQuery = "INSERT INTO members_list (title, date, description) VALUES ('$title', '$date', '$description')";
+    $insertQuery = "INSERT INTO events (title, date, description) VALUES ('$title', '$date', '$description')";
     $result = mysqli_query($connection, $insertQuery);
 
     if ($result) {

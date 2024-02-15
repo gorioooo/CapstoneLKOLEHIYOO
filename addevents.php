@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $date = $_POST["date"];
     $description = $_POST["description"];
 
-    $sql = "INSERT INTO `student`(`title`, `date`, `description`) 
+    $sql = "INSERT INTO events(`title`, `date`, `description`) 
         VALUES ('$title', '$date', '$description')";
 
     if ($conn->query($sql) === TRUE) {
