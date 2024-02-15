@@ -1,0 +1,65 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins';
+
+}
+body {
+    min-height: 100vh;
+    background-image: url("./img/bg.jpg");
+    background-size: cover;
+
+}
+a {
+    text-decoration: none;
+}
+li {
+    list-style: none;
+}
+h1, h2 {
+    color: white;
+}
+h3 {
+    color: #999;
+}
+
+.side-menu {
+    position: fixed;
+    background: #002145;
+    width: 20vw;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.side-menu .school-name {
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.side-menu a {
+    font-size: 20px;
+    padding: 20px 40px;
+    color: white;
+    display: block;
+    align-items: auto;
+}
+.side-menu a:hover {
+    background: white;
+    color: #f05462;
+}
+.side-menu img {
+    height: 120px;
+    margin-top: 10px;
+    margin-left: 95px;
+    margin-right: auto;
+    margin-bottom: 40px;
+}
+.container {
+    position: absolute;
+    right: 0;
+    width: 80vw;
+    height: 100vh;
+    background: #f1f1f1;
+}
