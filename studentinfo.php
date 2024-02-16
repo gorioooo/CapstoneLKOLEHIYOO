@@ -5,7 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="studentinfo.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <title>Student Information</title>
+<style>
+  .btn {
+    width: 20px;
+    height:  30px;
+    
+  }
+</style>
 </head>
 <body>
 
@@ -37,6 +45,7 @@ if ($result) {
           echo '<th>Grade and Section</th>';
           echo '<th>Username</th>';
           echo '<th>Password</th>';
+          echo '<th>Actions</th>';
           echo '</tr>';
         echo '</thead>';
       echo '<tbody>';
@@ -51,8 +60,25 @@ if ($result) {
           echo '<td>' . $row['username'] . '</td>';
           echo '<td>' . $row['password'] . '</td>';
 
+          echo '<td>';
+          // Display edit button
+          echo "<form class='edit' method='post' action='editstudent.php'>";
+          echo "<input type='hidden' name='id' value='" . $row['id'] . "'>";
+          echo "<button type='submit' name='edit_student' style='background-color: black !important; color: #fff !important;' class='btn'><i class='fa fa-pencil' aria-hidden='true'></i></button>";
+          echo "</form>";
+          echo '</td>';
+
+          echo '<td>';
+                // Display delete button
+                echo "<form class='delete' method='post' action=''>";
+                echo "<input type='hidden' name='id' value='" . $row['id'] . "'>";
+                echo "<button type='submit' name='delete_student' style='background-color: black !important; color: #fff !important;' class='btn'><i class='fa fa-trash' aria-hidden='true'></i></button>";
+                echo "</form>";
+                echo '</td>';
+
           echo '</tr>';
       }
+
 
       echo '</tbody>';
       echo '</table>';
@@ -65,6 +91,19 @@ if ($result) {
 } else {
   echo "<p>Error: " . mysqli_error($connection) . "</p>";
 }
+
+if (isset($_POST['delete_student'])) {
+  $student = mysqli_real_escape_string($connection, $_POST['id']);
+  $deleteQuery = "DELETE FROM student WHERE id = '$student'";
+  $deleteResult = mysqli_query($connection, $deleteQuery);
+
+  if ($deleteResult) {
+    echo "<script>alert('Student deleted successfully.');</script>";
+  } else {
+    echo "<script>alert('Error: " . mysqli_error($connection) . "');</script>";
+  }
+}
+
 ?>
 </body>
 </html>
