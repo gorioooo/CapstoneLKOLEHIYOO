@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             echo "<script>
                     alert('Incorrect password. Please try again.');
-                    window.location.href = 'login.php';
+                    window.location.href = 'login.html;
                   </script>";
         }
     }   
