@@ -1,34 +1,3 @@
-<?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Connect to the database
-    $connection = mysqli_connect("localhost", "root", "", "calendar");
-
-    // Check connection
-    if ($connection === false) {
-        die("Error: Connection error. " . mysqli_connect_error());
-    }
-
-    // Sanitize user inputs
-    $name = mysqli_real_escape_string($connection, $_POST['title']);
-
-    $id_number = mysqli_real_escape_string($connection, $_POST['date']);
-
-    $email = mysqli_real_escape_string($connection, $_POST['description']);
-
-    // Insert member data into the database
-    $insertQuery = "INSERT INTO events (title, date, description) VALUES ('$title', '$date', '$description')";
-    $result = mysqli_query($connection, $insertQuery);
-
-    if ($result) {
-        echo '<script>alert("Event added successfully.")</script>';
-    } else {
-        echo "Error: " . mysqli_error($connection);
-    }
-
-    // Close the database connection
-    mysqli_close($connection);
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,4 +24,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </form>
 </body>
+
+<script>
+    // events.js
+
+const firebaseConfig = {
+  // Your Firebase configuration
+};
+
+firebase.initializeApp(firebaseConfig);
+const database = firebase.firestore();
+
+document.getElementById("createForm").addEventListener("submit", function(event) {
+  event.preventDefault();
+  const title = document.getElementById("title").value;
+  const date = document.getElementById("date").value;
+  const description = document.getElementById("description").value;
+
+  addEvent(title, date, description);
+});
+
+function addEvent(title, date, description) {
+  database.collection("events").add({
+    title: title,
+    date: date,
+    description: description
+  })
+  .then(docRef => {
+    console.log("Event added with ID: ", docRef.id);
+    document.getElementById("createForm").reset();
+  })
+  .catch(error => {
+    console.error("Error adding event: ", error);
+  });
+}
+
+</script>
 </html>

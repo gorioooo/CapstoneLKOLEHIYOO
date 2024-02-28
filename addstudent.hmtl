@@ -1,0 +1,85 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="addstudent.css">
+    <script src="https://kit.fontawesome.com/e410dd328b.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
+    <title>Add Student</title>
+</head>
+<body>
+    <h2>Add Student</h2>
+    <form action="addprocess.php" method="post">
+        <label for="name">Name:</label>
+        <input type="text" name="name" required><br>
+
+        <label for="id_number">ID Number:</label>
+        <input type="text" name="id_number" required><br>
+
+        <label for="email">Email:</label>
+        <input type="email" name="email" required><br>
+
+        <label for="strand">Strand:</label>
+        <input type="text" name="strand" required><br>
+
+        <label for="grade_level">Grade Level and Section:</label>
+        <input type="text" name="grade_section" required><br>
+
+        <label for="username">Username:</label>
+        <input type="text" name="username" required><br>
+
+        <label for="password">Password:</label>
+        <input type="password" name="password" required><br>
+
+        <input type="submit" value="Add Student">
+    </form>
+
+    <script>
+        // students.js
+
+const firebaseConfig = {
+  // Your Firebase configuration
+};
+
+firebase.initializeApp(firebaseConfig);
+const database = firebase.firestore();
+
+document.getElementById("createForm").addEventListener("submit", function(event) {
+  event.preventDefault();
+  const name = document.getElementById("name").value;
+  const lrn = document.getElementById("lrn_number").value;
+  const email = document.getElementById("email").value;
+  const strand = document.getElementById("strand").value;
+  const grade = document.getElementById("grade").value;
+  const section = document.getElementById("section").value;
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
+
+  addStudent(name, lrn_number, email, strand, grade, section, username, password);
+});
+
+function addStudent(name, lrn_number, email, strand, grade, section, username, password) {
+  database.collection("students").add({
+    name: name,
+    lrn: lrn_number,
+    email: email,
+    strand: strand,
+    grade: grade,
+    section: section,
+    username: username,
+    password: password
+  })
+  .then(docRef => {
+    console.log("Student added with ID: ", docRef.id);
+    document.getElementById("createForm").reset();
+  })
+  .catch(error => {
+    console.error("Error adding student: ", error);
+  });
+}
+
+    </script>
+</body>
+</html>
